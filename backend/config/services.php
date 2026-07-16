@@ -55,4 +55,17 @@ return [
         ),
     ],
 
+    'steam' => [
+        'store_url' => env(
+            'STEAM_STORE_API_URL',
+            'https://store.steampowered.com/api'
+        ),
+        'language' => env('STEAM_LANGUAGE', 'spanish'),
+        'country' => env('STEAM_COUNTRY', 'mx'),
+        'seed_app_ids' => env(
+            'STEAM_SEED_APP_IDS',
+            '1245620,1091500,1174180,292030,1086940,413150,105600,367520,730,570'
+        ),
+    ],
+
 ];
