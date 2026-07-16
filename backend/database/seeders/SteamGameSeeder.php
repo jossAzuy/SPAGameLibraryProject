@@ -14,8 +14,7 @@ class SteamGameSeeder extends Seeder
 {
     public function __construct(
         private readonly SteamStoreService $steam
-    ) {
-    }
+    ) {}
 
     public function run(): void
     {
@@ -91,8 +90,7 @@ class SteamGameSeeder extends Seeder
         return collect(explode(',', $configured))
             ->map(fn (string $value): string => trim($value))
             ->filter(
-                fn (string $value): bool =>
-                    $value !== '' && ctype_digit($value)
+                fn (string $value): bool => $value !== '' && ctype_digit($value)
             )
             ->map(fn (string $value): int => (int) $value)
             ->filter(fn (int $value): bool => $value > 0)

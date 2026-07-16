@@ -128,8 +128,7 @@ class SteamStoreService
 
         return collect($names)
             ->filter(
-                fn (string $name, string $key): bool =>
-                    ($platforms[$key] ?? false) === true
+                fn (string $name, string $key): bool => ($platforms[$key] ?? false) === true
             )
             ->values()
             ->all();
