@@ -1,0 +1,116 @@
+services:
+    laravel.test:
+        build:
+            context: ./vendor/laravel/sail/runtimes/8.5
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: sail-8.5/app
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-8000}:80'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            redis:
+                condition: service_healthy
+            mongodb:
+                condition: service_healthy
+            chromadb:
+                condition: service_started
+            rustfs:
+                condition: service_started
+
+    mongodb:
+        image: mongo:8
+        restart: unless-stopped
+        ports:
+            - '${FORWARD_MONGODB_PORT:-27017}:27017'
+        environment:
+            MONGO_INITDB_DATABASE: '${MONGODB_DATABASE:-game_library}'
+        volumes:
+            - sail-mongodb:/data/db
+        healthcheck:
+            test:
+                - CMD
+                - mongosh
+                - '--quiet'
+                - '--eval'
+                - "db.adminCommand('ping').ok"
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 15s
+        networks:
+            - sail
+
+    redis:
+        image: redis:alpine
+        restart: unless-stopped
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
+        command: redis-server --appendonly yes
+        volumes:
+            - sail-redis:/data
+        healthcheck:
+            test:
+                - CMD
+                - redis-cli
+                - ping
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            - sail
+
+    chromadb:
+        image: chromadb/chroma:latest
+        restart: unless-stopped
+        ports:
+            - '${FORWARD_CHROMA_PORT:-8001}:8000'
+        volumes:
+            - sail-chromadb:/data
+        networks:
+            - sail
+
+    rustfs:
+        image: rustfs/rustfs:latest
+        restart: unless-stopped
+        ports:
+            - '${FORWARD_RUSTFS_PORT:-9000}:9000'
+            - '${FORWARD_RUSTFS_CONSOLE_PORT:-9001}:9001'
+        environment:
+            RUSTFS_ACCESS_KEY: '${RUSTFS_ACCESS_KEY:-gamelibrary}'
+            RUSTFS_SECRET_KEY: '${RUSTFS_SECRET_KEY:-gamelibrary_local_secret_2026}'
+            RUSTFS_CONSOLE_ENABLE: 'true'
+            RUSTFS_OBS_LOG_DIRECTORY: '/logs'
+        volumes:
+            - sail-rustfs:/data
+            - sail-rustfs-logs:/logs
+        networks:
+            - sail
+
+networks:
+    sail:
+        driver: bridge
+
+volumes:
+    sail-mongodb:
+        driver: local
+    sail-redis:
+        driver: local
+    sail-chromadb:
+        driver: local
+    sail-rustfs:
+        driver: local
+    sail-rustfs-logs:
+        driver: local
