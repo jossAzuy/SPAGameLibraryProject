@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\HealthController;
 use Illuminate\Support\Facades\Route;
@@ -34,3 +35,22 @@ Route::prefix('auth')->group(function (): void {
         ]);
     });
 });
+
+Route::middleware('auth:sanctum')
+    ->prefix('favorites')
+    ->group(function (): void {
+        Route::get('/', [
+            FavoriteController::class,
+            'index',
+        ]);
+
+        Route::post('/', [
+            FavoriteController::class,
+            'store',
+        ]);
+
+        Route::delete('/{game}', [
+            FavoriteController::class,
+            'destroy',
+        ])->where('game', '[a-fA-F0-9]{24}');
+    });
