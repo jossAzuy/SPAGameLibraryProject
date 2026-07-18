@@ -1,0 +1,142 @@
+[90m= [39m[
+    [34m"[39m[34mid[39m[34m"[39m => [32m"[39m[32m92bd0d28-8db9-4bbb-bd3f-1cb6d2ee89df[39m[32m"[39m,
+    [34m"[39m[34mname[39m[34m"[39m => [32m"[39m[32mgames[39m[32m"[39m,
+    [34m"[39m[34mconfiguration_json[39m[34m"[39m => [
+      [34m"[39m[34mhnsw[39m[34m"[39m => [
+        [34m"[39m[34mspace[39m[34m"[39m => [32m"[39m[32ml2[39m[32m"[39m,
+        [34m"[39m[34mef_construction[39m[34m"[39m => [35m100[39m,
+        [34m"[39m[34mef_search[39m[34m"[39m => [35m100[39m,
+        [34m"[39m[34mmax_neighbors[39m[34m"[39m => [35m16[39m,
+        [34m"[39m[34mresize_factor[39m[34m"[39m => [35m1.2[39m,
+        [34m"[39m[34msync_threshold[39m[34m"[39m => [35m1000[39m,
+      ],
+      [34m"[39m[34mspann[39m[34m"[39m => [36mnull[39m,
+      [34m"[39m[34membedding_function[39m[34m"[39m => [36mnull[39m,
+    ],
+    [34m"[39m[34mschema[39m[34m"[39m => [
+      [34m"[39m[34mdefaults[39m[34m"[39m => [
+        [34m"[39m[34mstring[39m[34m"[39m => [
+          [34m"[39m[34mfts_index[39m[34m"[39m => [
+            [34m"[39m[34menabled[39m[34m"[39m => [36mfalse[39m,
+            [34m"[39m[34mconfig[39m[34m"[39m => [],
+          ],
+          [34m"[39m[34mstring_inverted_index[39m[34m"[39m => [
+            [34m"[39m[34menabled[39m[34m"[39m => [36mtrue[39m,
+            [34m"[39m[34mconfig[39m[34m"[39m => [],
+          ],
+        ],
+        [34m"[39m[34mfloat_list[39m[34m"[39m => [
+          [34m"[39m[34mvector_index[39m[34m"[39m => [
+            [34m"[39m[34menabled[39m[34m"[39m => [36mfalse[39m,
+            [34m"[39m[34mconfig[39m[34m"[39m => [
+              [34m"[39m[34mspace[39m[34m"[39m => [32m"[39m[32ml2[39m[32m"[39m,
+              [34m"[39m[34mhnsw[39m[34m"[39m => [
+                [34m"[39m[34mef_construction[39m[34m"[39m => [35m100[39m,
+                [34m"[39m[34mmax_neighbors[39m[34m"[39m => [35m16[39m,
+                [34m"[39m[34mef_search[39m[34m"[39m => [35m100[39m,
+                [34m"[39m[34mnum_threads[39m[34m"[39m => [35m12[39m,
+                [34m"[39m[34mbatch_size[39m[34m"[39m => [35m100[39m,
+                [34m"[39m[34msync_threshold[39m[34m"[39m => [35m1000[39m,
+                [34m"[39m[34mresize_factor[39m[34m"[39m => [35m1.2[39m,
+              ],
+            ],
+          ],
+        ],
+        [34m"[39m[34msparse_vector[39m[34m"[39m => [
+          [34m"[39m[34msparse_vector_index[39m[34m"[39m => [
+            [34m"[39m[34menabled[39m[34m"[39m => [36mfalse[39m,
+            [34m"[39m[34mconfig[39m[34m"[39m => [
+              [34m"[39m[34membedding_function[39m[34m"[39m => [
+                [34m"[39m[34mtype[39m[34m"[39m => [32m"[39m[32munknown[39m[32m"[39m,
+              ],
+              [34m"[39m[34mbm25[39m[34m"[39m => [36mfalse[39m,
+            ],
+          ],
+        ],
+        [34m"[39m[34mint[39m[34m"[39m => [
+          [34m"[39m[34mint_inverted_index[39m[34m"[39m => [
+            [34m"[39m[34menabled[39m[34m"[39m => [36mtrue[39m,
+            [34m"[39m[34mconfig[39m[34m"[39m => [],
+          ],
+        ],
+        [34m"[39m[34mfloat[39m[34m"[39m => [
+          [34m"[39m[34mfloat_inverted_index[39m[34m"[39m => [
+            [34m"[39m[34menabled[39m[34m"[39m => [36mtrue[39m,
+            [34m"[39m[34mconfig[39m[34m"[39m => [],
+          ],
+        ],
+        [34m"[39m[34mbool[39m[34m"[39m => [
+          [34m"[39m[34mbool_inverted_index[39m[34m"[39m => [
+            [34m"[39m[34menabled[39m[34m"[39m => [36mtrue[39m,
+            [34m"[39m[34mconfig[39m[34m"[39m => [],
+          ],
+        ],
+      ],
+      [34m"[39m[34mkeys[39m[34m"[39m => [
+        [34m"[39m[34mtitle[39m[34m"[39m => [
+          [34m"[39m[34mstring[39m[34m"[39m => [
+            [34m"[39m[34mfts_index[39m[34m"[39m => [
+              [34m"[39m[34menabled[39m[34m"[39m => [36mfalse[39m,
+              [34m"[39m[34mconfig[39m[34m"[39m => [],
+            ],
+            [34m"[39m[34mstring_inverted_index[39m[34m"[39m => [
+              [34m"[39m[34menabled[39m[34m"[39m => [36mtrue[39m,
+              [34m"[39m[34mconfig[39m[34m"[39m => [],
+            ],
+          ],
+        ],
+        [34m"[39m[34m#document[39m[34m"[39m => [
+          [34m"[39m[34mstring[39m[34m"[39m => [
+            [34m"[39m[34mfts_index[39m[34m"[39m => [
+              [34m"[39m[34menabled[39m[34m"[39m => [36mtrue[39m,
+              [34m"[39m[34mconfig[39m[34m"[39m => [],
+            ],
+            [34m"[39m[34mstring_inverted_index[39m[34m"[39m => [
+              [34m"[39m[34menabled[39m[34m"[39m => [36mfalse[39m,
+              [34m"[39m[34mconfig[39m[34m"[39m => [],
+            ],
+          ],
+        ],
+        [34m"[39m[34mtype[39m[34m"[39m => [
+          [34m"[39m[34mstring[39m[34m"[39m => [
+            [34m"[39m[34mfts_index[39m[34m"[39m => [
+              [34m"[39m[34menabled[39m[34m"[39m => [36mfalse[39m,
+              [34m"[39m[34mconfig[39m[34m"[39m => [],
+            ],
+            [34m"[39m[34mstring_inverted_index[39m[34m"[39m => [
+              [34m"[39m[34menabled[39m[34m"[39m => [36mtrue[39m,
+              [34m"[39m[34mconfig[39m[34m"[39m => [],
+            ],
+          ],
+        ],
+        [34m"[39m[34m#embedding[39m[34m"[39m => [
+          [34m"[39m[34mfloat_list[39m[34m"[39m => [
+            [34m"[39m[34mvector_index[39m[34m"[39m => [
+              [34m"[39m[34menabled[39m[34m"[39m => [36mtrue[39m,
+              [34m"[39m[34mconfig[39m[34m"[39m => [
+                [34m"[39m[34mspace[39m[34m"[39m => [32m"[39m[32ml2[39m[32m"[39m,
+                [34m"[39m[34msource_key[39m[34m"[39m => [32m"[39m[32m#document[39m[32m"[39m,
+                [34m"[39m[34mhnsw[39m[34m"[39m => [
+                  [34m"[39m[34mef_construction[39m[34m"[39m => [35m100[39m,
+                  [34m"[39m[34mmax_neighbors[39m[34m"[39m => [35m16[39m,
+                  [34m"[39m[34mef_search[39m[34m"[39m => [35m100[39m,
+                  [34m"[39m[34mnum_threads[39m[34m"[39m => [35m12[39m,
+                  [34m"[39m[34mbatch_size[39m[34m"[39m => [35m100[39m,
+                  [34m"[39m[34msync_threshold[39m[34m"[39m => [35m1000[39m,
+                  [34m"[39m[34mresize_factor[39m[34m"[39m => [35m1.2[39m,
+                ],
+              ],
+            ],
+          ],
+        ],
+      ],
+    ],
+    [34m"[39m[34mmetadata[39m[34m"[39m => [
+      [34m"[39m[34mdescription[39m[34m"[39m => [32m"[39m[32mGame Library semantic search collection[39m[32m"[39m,
+    ],
+    [34m"[39m[34mdimension[39m[34m"[39m => [35m3[39m,
+    [34m"[39m[34mtenant[39m[34m"[39m => [32m"[39m[32mdefault_tenant[39m[32m"[39m,
+    [34m"[39m[34mdatabase[39m[34m"[39m => [32m"[39m[32mdefault_database[39m[32m"[39m,
+    [34m"[39m[34mlog_position[39m[34m"[39m => [35m0[39m,
+    [34m"[39m[34mversion[39m[34m"[39m => [35m0[39m,
+  ]

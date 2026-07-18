@@ -4,9 +4,15 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\HealthController;
+use App\Http\Controllers\Api\SemanticGameSearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', HealthController::class);
+
+Route::get(
+    '/games/semantic-search',
+    SemanticGameSearchController::class,
+);
 
 Route::apiResource('games', GameController::class);
 

@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\GameObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use MongoDB\Laravel\Eloquent\Model;
+
+#[ObservedBy([GameObserver::class])]
 
 class Game extends Model
 {

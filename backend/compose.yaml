@@ -4,20 +4,20 @@ services:
             context: ./vendor/laravel/sail/runtimes/8.5
             dockerfile: Dockerfile
             args:
-                WWWGROUP: '${WWWGROUP}'
+                WWWGROUP: "${WWWGROUP}"
         image: sail-8.5/app
         extra_hosts:
-            - 'host.docker.internal:host-gateway'
+            - "host.docker.internal:host-gateway"
         ports:
-            - '${APP_PORT:-8000}:80'
+            - "${APP_PORT:-8000}:80"
         environment:
-            WWWUSER: '${WWWUSER}'
+            WWWUSER: "${WWWUSER}"
             LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+            XDEBUG_MODE: "${SAIL_XDEBUG_MODE:-off}"
+            XDEBUG_CONFIG: "${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}"
+            IGNITION_LOCAL_SITES_PATH: "${PWD}"
         volumes:
-            - '.:/var/www/html'
+            - ".:/var/www/html"
         networks:
             - sail
         depends_on:
@@ -29,22 +29,24 @@ services:
                 condition: service_started
             rustfs:
                 condition: service_started
+            ollama:
+                condition: service_started
 
     mongodb:
         image: mongo:8
         restart: unless-stopped
         ports:
-            - '${FORWARD_MONGODB_PORT:-27017}:27017'
+            - "${FORWARD_MONGODB_PORT:-27017}:27017"
         environment:
-            MONGO_INITDB_DATABASE: '${MONGODB_DATABASE:-game_library}'
+            MONGO_INITDB_DATABASE: "${MONGODB_DATABASE:-game_library}"
         volumes:
             - sail-mongodb:/data/db
         healthcheck:
             test:
                 - CMD
                 - mongosh
-                - '--quiet'
-                - '--eval'
+                - "--quiet"
+                - "--eval"
                 - "db.adminCommand('ping').ok"
             interval: 10s
             timeout: 5s
@@ -57,7 +59,7 @@ services:
         image: redis:alpine
         restart: unless-stopped
         ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
+            - "${FORWARD_REDIS_PORT:-6379}:6379"
         command: redis-server --appendonly yes
         volumes:
             - sail-redis:/data
@@ -76,7 +78,7 @@ services:
         image: chromadb/chroma:latest
         restart: unless-stopped
         ports:
-            - '${FORWARD_CHROMA_PORT:-8001}:8000'
+            - "${FORWARD_CHROMA_PORT:-8001}:8000"
         volumes:
             - sail-chromadb:/data
         networks:
@@ -86,16 +88,26 @@ services:
         image: rustfs/rustfs:latest
         restart: unless-stopped
         ports:
-            - '${FORWARD_RUSTFS_PORT:-9000}:9000'
-            - '${FORWARD_RUSTFS_CONSOLE_PORT:-9001}:9001'
+            - "${FORWARD_RUSTFS_PORT:-9000}:9000"
+            - "${FORWARD_RUSTFS_CONSOLE_PORT:-9001}:9001"
         environment:
-            RUSTFS_ACCESS_KEY: '${RUSTFS_ACCESS_KEY:-gamelibrary}'
-            RUSTFS_SECRET_KEY: '${RUSTFS_SECRET_KEY:-gamelibrary_local_secret_2026}'
-            RUSTFS_CONSOLE_ENABLE: 'true'
-            RUSTFS_OBS_LOG_DIRECTORY: '/logs'
+            RUSTFS_ACCESS_KEY: "${RUSTFS_ACCESS_KEY:-gamelibrary}"
+            RUSTFS_SECRET_KEY: "${RUSTFS_SECRET_KEY:-gamelibrary_local_secret_2026}"
+            RUSTFS_CONSOLE_ENABLE: "true"
+            RUSTFS_OBS_LOG_DIRECTORY: "/logs"
         volumes:
             - sail-rustfs:/data
             - sail-rustfs-logs:/logs
+        networks:
+            - sail
+
+    ollama:
+        image: ollama/ollama:latest
+        restart: unless-stopped
+        ports:
+            - "${FORWARD_OLLAMA_PORT:-11434}:11434"
+        volumes:
+            - sail-ollama:/root/.ollama
         networks:
             - sail
 
@@ -113,4 +125,6 @@ volumes:
     sail-rustfs:
         driver: local
     sail-rustfs-logs:
+        driver: local
+    sail-ollama:
         driver: local
