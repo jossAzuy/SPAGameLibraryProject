@@ -1,7 +1,9 @@
 import http from '../api/http'
 
-export async function getGames() {
-  const response = await http.get('/games')
+export async function getGames(filters = {}) {
+  const response = await http.get('/games', {
+    params: filters,
+  })
 
   return response.data
 }
